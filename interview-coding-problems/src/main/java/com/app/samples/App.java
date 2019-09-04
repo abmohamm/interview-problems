@@ -11,31 +11,55 @@ public class App
 	public static void main( String[] args )
 	{
 		//printFizzBuzz(100);
-		    	int[] numbers = new int[] {9,7,10,9,1,2,3,1,2,3,4};
-//		    	int[] result = reverseArrayWithoutOther(numbers, 0, numbers.length-1);//reverseArray(numbers);
-//		    	System.out.print("Array Numbers : "+result[0]);
+		int[] numbers = new int[] {9,7,10,9,1,2,3,1,2,3,4};
+		removeDuplicatesFromArray(numbers);
+		//		    	int[] result = reverseArrayWithoutOther(numbers, 0, numbers.length-1);//reverseArray(numbers);
+		//		    	System.out.print("Array Numbers : "+result[0]);
 		//    	int target = 7;
 		//    	checkTwoSum(numbers,target);
 		//String reversed = reverseManually("reversewithstringbuilder");
 		//String unique = removeDuplicates("reversewithstringbuilder");
 		//System.out.println("unique char sequece : "+unique);
-//		boolean isPrime = isPrime(10);
-//		System.out.print("Is Prime? : "+isPrime);
-//		int first = 10;
-//		int second = 20;
-//		swapTwoNumbers(first, second);
+		//		boolean isPrime = isPrime(10);
+		//		System.out.print("Is Prime? : "+isPrime);
+		//		int first = 10;
+		//		int second = 20;
+		//		swapTwoNumbers(first, second);
 	}
-	
+
+	public static int[] removeDuplicatesFromArray(int[] arr) {
+		Map<Object,Object> map = new HashMap<Object,Object>();
+		int num=1;	
+		int counter = 0;
+		for(int i=0;i<arr.length;i++) {
+			if(!map.containsKey(arr[i])) {
+				map.put(arr[i],num);
+				counter++;
+			}
+			else {
+				int count = (Integer) map.get(arr[i]);
+				map.put(arr[i], count+1);
+			}
+		}
+		int[] newArray = new int[counter];
+		int i = 0;
+		for(Map.Entry<Object, Object> mapEntry : map.entrySet()) {
+			newArray[i] = (Integer) mapEntry.getKey();
+			i++;
+		}	
+		return newArray;
+	}
+
 	public static int[] reverseArray(int[] arr) {
 		int[] input = new int[arr.length];
 		int length = arr.length;
-		
+
 		for(int i=length-1;i>=0;i--) {
 			input[length-i-1] = arr[i];
 		}
 		return input;		
 	}
-	
+
 	private static int[] reverseArrayWithoutOther(int[] input,int start,int end) {
 		int temp = 0;	
 		System.out.print("Input Array elements are : ");
@@ -56,7 +80,7 @@ public class App
 		}
 		return input;
 	}
-	
+
 	public static boolean isPrime(int n) {
 		boolean isPrime = false;
 		int counter = 0;
@@ -125,7 +149,7 @@ public class App
 		}
 		return builder.toString();
 	}
-	
+
 	public static void swapTwoNumbers(int first,int second) {
 		first = first+second; 
 		second = first-second;
