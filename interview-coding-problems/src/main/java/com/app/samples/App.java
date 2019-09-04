@@ -1,6 +1,12 @@
 package com.app.samples;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Hello world!
@@ -8,11 +14,13 @@ import java.util.Map;
  */
 public class App 
 {
+	Logger logger = LoggerFactory.getLogger(App.class);
 	public static void main( String[] args )
 	{
+		
 		//printFizzBuzz(100);
-		int[] numbers = new int[] {9,7,10,9,1,2,3,1,2,3,4};
-		removeDuplicatesFromArray(numbers);
+		//int[] numbers = new int[] {9,7,10,9,1,2,3,1,2,3,4};
+		//removeDuplicatesFromArray(numbers);
 		//		    	int[] result = reverseArrayWithoutOther(numbers, 0, numbers.length-1);//reverseArray(numbers);
 		//		    	System.out.print("Array Numbers : "+result[0]);
 		//    	int target = 7;
@@ -25,8 +33,54 @@ public class App
 		//		int first = 10;
 		//		int second = 20;
 		//		swapTwoNumbers(first, second);
+		
+		String first = "reverse with string builder";
+		String second = "reverse with string builder";
+		boolean result = checkAnagramWithList(first, second);
+		System.out.print("Is Anagram ? "+result);
 	}
 
+	private static boolean checkAnagram(String first,String second) {
+		boolean isAnagram;
+		if(first.length() != second.length()){
+			isAnagram = false;
+		}
+		else {
+			first = first.replaceAll("\\s", "");
+			second = second.replaceAll("\\s", "");
+			char[] firstArr = first.toLowerCase().toCharArray();
+			char[] secArr = second.toLowerCase().toCharArray();
+			Arrays.sort(firstArr);
+			Arrays.sort(secArr);
+			isAnagram = Arrays.equals(firstArr, secArr);			
+		}		
+		return isAnagram;
+	}
+	
+	private static boolean checkAnagramWithList(String first,String second) {
+		boolean isAnagram = false;
+		List<Character> characters = new ArrayList<Character>();
+		first = first.toLowerCase();
+		second = second.toLowerCase();
+		if(first.length() != second.length()) {
+			isAnagram = false;			
+		}
+		else {
+			for(int i=0;i<first.length();i++) {
+				characters.add(first.charAt(i));
+			}			
+			for(int i=0;i<second.length();i++) {
+				if(second.contains(Character.toString(second.charAt(i)))) {
+					isAnagram = false;
+				}
+				else {
+					isAnagram = true;
+				}
+			}
+		}
+		return isAnagram;
+	}
+	
 	public static int[] removeDuplicatesFromArray(int[] arr) {
 		Map<Object,Object> map = new HashMap<Object,Object>();
 		int num=1;	
