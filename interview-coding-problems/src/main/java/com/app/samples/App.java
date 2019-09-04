@@ -11,17 +11,50 @@ public class App
 	public static void main( String[] args )
 	{
 		//printFizzBuzz(100);
-		//    	int[] numbers = new int[] {2,3,4,7,8};
+		    	int[] numbers = new int[] {9,7,10,9,1,2,3,1,2,3,4};
+//		    	int[] result = reverseArrayWithoutOther(numbers, 0, numbers.length-1);//reverseArray(numbers);
+//		    	System.out.print("Array Numbers : "+result[0]);
 		//    	int target = 7;
 		//    	checkTwoSum(numbers,target);
 		//String reversed = reverseManually("reversewithstringbuilder");
 		//String unique = removeDuplicates("reversewithstringbuilder");
 		//System.out.println("unique char sequece : "+unique);
-		boolean isPrime = isPrime(10);
-		System.out.print("Is Prime? : "+isPrime);
+//		boolean isPrime = isPrime(10);
+//		System.out.print("Is Prime? : "+isPrime);
+//		int first = 10;
+//		int second = 20;
+//		swapTwoNumbers(first, second);
+	}
+	
+	public static int[] reverseArray(int[] arr) {
+		int[] input = new int[arr.length];
+		int length = arr.length;
 		
-		
-
+		for(int i=length-1;i>=0;i--) {
+			input[length-i-1] = arr[i];
+		}
+		return input;		
+	}
+	
+	private static int[] reverseArrayWithoutOther(int[] input,int start,int end) {
+		int temp = 0;	
+		System.out.print("Input Array elements are : ");
+		for(int i=0;i<input.length;i++) {
+			System.out.print(input[i]+",");
+		}
+		while(start < end) {
+			temp = input[start];
+			input[start] = input[end];
+			input[end] = temp;
+			start++;
+			end--;
+		}	
+		System.out.println();
+		System.out.print("Output Array elements are : ");
+		for(int i=0;i<input.length;i++) {
+			System.out.print(input[i]+",");
+		}
+		return input;
 	}
 	
 	public static boolean isPrime(int n) {
@@ -90,8 +123,13 @@ public class App
 				}
 			}
 		}
-
 		return builder.toString();
+	}
+	
+	public static void swapTwoNumbers(int first,int second) {
+		first = first+second; 
+		second = first-second;
+		first = first-second;		
 	}
 }
 
