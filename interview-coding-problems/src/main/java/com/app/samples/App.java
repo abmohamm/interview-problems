@@ -20,6 +20,9 @@ public class App
 		
 		//printFizzBuzz(100);
 		//int[] numbers = new int[] {9,7,10,9,1,2,3,1,2,3,4};
+		//9 for Blue,1 for Green,2 for violet,3 for Red
+		//int[] balls = new int[] {9,1,2,3,9,1,2,3};
+		//returnSameKind(balls,9);
 		//removeDuplicatesFromArray(numbers);
 		//		    	int[] result = reverseArrayWithoutOther(numbers, 0, numbers.length-1);//reverseArray(numbers);
 		//		    	System.out.print("Array Numbers : "+result[0]);
@@ -34,10 +37,47 @@ public class App
 		//		int second = 20;
 		//		swapTwoNumbers(first, second);
 		
-		String first = "reverse with string builder";
-		String second = "reverse with string builder";
-		boolean result = checkAnagramWithList(first, second);
-		System.out.print("Is Anagram ? "+result);
+//		String first = "reverse with string builder";
+//		String second = "reverse with string builder";
+//		boolean result = checkAnagramWithList(first, second);
+//		System.out.print("Is Anagram ? "+result);
+		String input = "It describes how different objects and classes send messages to each other to make things "
+				+ "happen and how the steps of a task are divided among different objects";
+		countEachWord(input);
+		}
+	
+	public static void countEachWord(String input) {
+		String[] arr = null;
+		int count = 0;
+		int num = 1;
+		Map<String,Integer> map = new HashMap<String, Integer>();
+		if(input != null) {
+			arr = input.toLowerCase().split(" ");
+		}
+		for(String s : arr) {
+			if(!map.containsKey(s)) {
+				map.put(s, num);
+			}
+			else {
+				count = map.get(s);
+				map.put(s, count+1);
+			}
+		}
+		for(Map.Entry<String, Integer> mapEntry : map.entrySet()) {
+			System.out.println(mapEntry.getKey()+" is present "+mapEntry.getValue()+" times ");
+		} 		
+	}
+	
+	public static Object[] returnSameKind(int[] arr,int kind) {
+		List<Integer> same = new ArrayList<Integer>();
+		Object[] sameKind = null;
+		for(int i=0;i<arr.length;i++) {
+			if(arr[i] == kind) {
+				same.add(arr[i]);
+			}
+		}
+		sameKind = same.toArray();
+		return sameKind;
 	}
 
 	private static boolean checkAnagram(String first,String second) {
