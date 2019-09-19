@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,9 +18,14 @@ public class App
 	Logger logger = LoggerFactory.getLogger(App.class);
 	public static void main( String[] args )
 	{
-		
+		countCharacterOccurence("Java J2EE Java JSP J2EE");
+		//findSum(7456);
+		//findDuplicateChars("Better Butter");//Fresh Fish		
 		//printFizzBuzz(100);
-		//int[] numbers = new int[] {9,7,10,9,1,2,3,1,2,3,4};
+		//		int[] numbers = new int[] {9,7,10,9,1,2,3,1,2,3,4};
+		//		pattern1(5);
+		//int[] uniqueArr = removeDuplicatesFromArray(numbers);
+		//System.out.print(uniqueArr[0]);
 		//9 for Blue,1 for Green,2 for violet,3 for Red
 		//int[] balls = new int[] {9,1,2,3,9,1,2,3};
 		//returnSameKind(balls,9);
@@ -36,16 +42,235 @@ public class App
 		//		int first = 10;
 		//		int second = 20;
 		//		swapTwoNumbers(first, second);
-		
-//		String first = "reverse with string builder";
-//		String second = "reverse with string builder";
-//		boolean result = checkAnagramWithList(first, second);
-//		System.out.print("Is Anagram ? "+result);
-		String input = "It describes how different objects and classes send messages to each other to make things "
-				+ "happen and how the steps of a task are divided among different objects";
-		countEachWord(input);
-		}
+
+		//		String first = "reverse with string builder";
+		//		String second = "reverse with string builder";
+		//		boolean result = checkAnagramWithList(first, second);
+		//		System.out.print("Is Anagram ? "+result);
+		//		String input = "It describes how different objects and classes send messages to each other to make things "
+		//				+ "happen and how the steps of a task are divided among different objects";
+		//		withoutSpaces(input);
+		//		countEachWord(input);
+	}
 	
+	//count occurences of each character in a String
+	public static void countCharacterOccurence(String input) {
+		Map<Character,Integer> map = new HashMap<Character, Integer>();
+		int one=1;
+		int count=0;
+		char ch=' ';
+		if(input != null) {
+			for(int i=0;i<input.length();i++) {
+				ch = input.charAt(i);
+				if(!map.containsKey(ch)) {
+					map.put(ch, one);					
+				}
+				else {
+					count = map.get(ch);
+					map.put(ch, count+1);					
+				}
+			}			
+			for(Map.Entry<Character, Integer> entry : map.entrySet()) {
+				System.out.print(entry.getKey()+" is present "+entry.getValue()+" times ");
+			}
+		}
+		else {
+			System.out.println("given string is emnpty");
+		}
+	}
+	
+	//print second largest number
+	private static void printSecHighestElement(int arr[]) {
+		int largest = arr[0];
+		int secLargest = arr[0];
+
+		for(int i=0;i<arr.length;i++) {
+			if(arr[i]>largest) {
+				secLargest = largest;
+				largest = arr[i];				
+			}
+			else if(arr[i] > secLargest && arr[i] != largest) {
+				secLargest = arr[i];
+			}
+		}
+	}	
+	
+	//find sum of digits of a numer
+	public static void findSum(int number) {
+		int sum = 0;
+		int reminder = 0;
+		
+		while(number > 0) {
+			reminder = number % 10;
+			sum = sum+reminder;
+			number = number/10;			
+		}
+		
+		System.out.print("Sum is : "+sum);
+	}
+	
+	//check Armstrong number
+	public static void checkArmstrong(int num) {
+		int result = 0;
+		int reminder = 0;
+		
+		//get the number of digits in a number
+		int noOfDigits = String.valueOf(num).length();
+		
+		while(num > 0) {
+			reminder = num % 10;	
+			int lastDigit = 1;
+			for(int i=0;i<noOfDigits;i++) {
+				lastDigit = lastDigit*reminder;
+			}
+			result = result+lastDigit;			
+		}
+		
+	}
+
+	//find duplicate characters in a given string
+	public static void findDuplicateChars(String input) {
+
+		Map<Character,Integer> map = new HashMap<Character, Integer>();
+		int one = 1;	
+		int count = 0;
+		for(char ch : input.toCharArray()) {
+			if(!map.containsKey(ch)) {
+				map.put(ch, one);				
+			}
+			else {
+				count = map.get(ch);
+				map.put(ch, count+1);
+			}
+		}
+
+		for(Map.Entry<Character, Integer> entry : map.entrySet()) {
+			if(entry.getValue() != 1) {
+				System.out.println(entry.getKey()+" is present "+entry.getValue()+" times ");
+			}
+		}		
+	}
+
+	//check for equality of two arrays
+	public static void compareTwoArrays(int[] first, int[] second) {
+		boolean isEqual = false;
+		//first sort the two arrays
+		first = sortArray(first);
+		second = sortArray(second);
+
+		if(first.length == second.length) {
+			for(int i=0;i<first.length;i++) {
+				if(first[i] == second[i]) {
+					isEqual = true;					
+				}
+			}
+		}
+		else {
+			isEqual = false;
+		}
+		
+		if(isEqual) {
+			System.out.println("Arrays are equal");
+		}
+		else {
+			System.out.println("Arrays are not equal");
+		}
+	}
+	
+	//find the longest string in a given string array
+	public static void findLargestString(String[] arr) {
+		int maxLength = 0;
+		int length = 0;
+		String longestString = null;
+		for(String str : arr) {
+			length = str.length();
+			if(length >= maxLength) {
+				maxLength = length;
+				longestString = str;				
+			}
+		}
+		System.out.println("Longest String is : "+longestString);
+	}
+
+	public  static int[] sortArray(int[] arr) {
+		int temp = 0;
+		for(int i=0;i<arr.length;i++) {
+			for(int j=i+1;j<arr.length;j++) {
+				if(arr[i]>arr[j]) {
+					temp = arr[i];
+					arr[i] = arr[j];
+					arr[j] = temp;					
+				}
+			}
+		}
+		return arr;
+	}
+
+
+	//         1
+	//        2 2
+	//       3 3 3
+	//      4 4 4 4
+	private static void pattern1(int noOfRows) {
+		int row = 1;		
+		for(int i=noOfRows;i>0;i--) {
+			//			for(int j=1;j<=row;j++) {
+			//				System.out.print(row+" ");
+			//			}
+			for(int j=1;j<=i;j++) {
+				System.out.print(" ");
+			}
+			for(int j=1;j<=row;j++) {
+				//System.out.print(row+" ");
+				System.out.print(j+" ");
+			}
+			row++;
+			System.out.println();			
+		}
+	}
+
+	public static String withoutSpaces(String str) {
+		StringTokenizer tokenizer = new StringTokenizer(str," ");
+		StringBuilder builder = new StringBuilder();
+		while(tokenizer.hasMoreTokens()) {
+			builder.append(tokenizer.nextToken());
+		}
+		String result = builder.toString();
+		return result;
+	}
+
+	public static int[] removeDuplicatesFromArray(int[] arr) {
+		int[] unique = {};
+		int temp = 0;
+		int uniqueLength = 0;
+
+		for(int i=0;i<arr.length;i++) {
+			for(int j=i+1;j<arr.length;j++) {
+				if(arr[i]>arr[j]) {
+					temp = arr[i];
+					arr[i] = arr[j];
+					arr[j] = temp;					
+				}
+			}
+		}
+
+		//arr is sorted arr
+		for(int i=0;i<arr.length;i++) {
+			if(arr[i] == arr[i+1]) {
+				uniqueLength = uniqueLength+1;
+			}
+		}
+
+		unique = new int[arr.length-uniqueLength];
+
+		for(int i=0;i<arr.length;i++) {
+			if(arr[i] != 0) {
+				unique[i] = arr[i];
+			}
+		}		
+		return unique;
+	}
+
 	public static void countEachWord(String input) {
 		String[] arr = null;
 		int count = 0;
@@ -67,7 +292,7 @@ public class App
 			System.out.println(mapEntry.getKey()+" is present "+mapEntry.getValue()+" times ");
 		} 		
 	}
-	
+
 	public static Object[] returnSameKind(int[] arr,int kind) {
 		List<Integer> same = new ArrayList<Integer>();
 		Object[] sameKind = null;
@@ -82,12 +307,12 @@ public class App
 
 	private static boolean checkAnagram(String first,String second) {
 		boolean isAnagram;
+		first = first.replaceAll("\\s", "");
+		second = second.replaceAll("\\s", "");
 		if(first.length() != second.length()){
 			isAnagram = false;
 		}
 		else {
-			first = first.replaceAll("\\s", "");
-			second = second.replaceAll("\\s", "");
 			char[] firstArr = first.toLowerCase().toCharArray();
 			char[] secArr = second.toLowerCase().toCharArray();
 			Arrays.sort(firstArr);
@@ -96,7 +321,7 @@ public class App
 		}		
 		return isAnagram;
 	}
-	
+
 	private static boolean checkAnagramWithList(String first,String second) {
 		boolean isAnagram = false;
 		List<Character> characters = new ArrayList<Character>();
@@ -120,29 +345,29 @@ public class App
 		}
 		return isAnagram;
 	}
-	
-	public static int[] removeDuplicatesFromArray(int[] arr) {
-		Map<Object,Object> map = new HashMap<Object,Object>();
-		int num=1;	
-		int counter = 0;
-		for(int i=0;i<arr.length;i++) {
-			if(!map.containsKey(arr[i])) {
-				map.put(arr[i],num);
-				counter++;
-			}
-			else {
-				int count = (Integer) map.get(arr[i]);
-				map.put(arr[i], count+1);
-			}
-		}
-		int[] newArray = new int[counter];
-		int i = 0;
-		for(Map.Entry<Object, Object> mapEntry : map.entrySet()) {
-			newArray[i] = (Integer) mapEntry.getKey();
-			i++;
-		}	
-		return newArray;
-	}
+
+	//	public static int[] removeDuplicatesFromArray(int[] arr) {
+	//		Map<Object,Object> map = new HashMap<Object,Object>();
+	//		int num=1;	
+	//		int counter = 0;
+	//		for(int i=0;i<arr.length;i++) {
+	//			if(!map.containsKey(arr[i])) {
+	//				map.put(arr[i],num);
+	//				counter++;
+	//			}
+	//			else {
+	//				int count = (Integer) map.get(arr[i]);
+	//				map.put(arr[i], count+1);
+	//			}
+	//		}
+	//		int[] newArray = new int[counter];
+	//		int i = 0;
+	//		for(Map.Entry<Object, Object> mapEntry : map.entrySet()) {
+	//			newArray[i] = (Integer) mapEntry.getKey();
+	//			i++;
+	//		}	
+	//		return newArray;
+	//	}
 
 	public static int[] reverseArray(int[] arr) {
 		int[] input = new int[arr.length];
