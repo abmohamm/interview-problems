@@ -20,14 +20,16 @@ public class App
 	Logger logger = LoggerFactory.getLogger(App.class);
 	public static void main( String[] args )
 	{
-		String[] s1 = {"ONE", "TWO", "THREE", "FOUR", "FIVE", "FOUR"};		 
-        String[] s2 = {"THREE", "FOUR", "FIVE", "SIX", "SEVEN", "FOUR"};
-        Set<String> common =  getCommonElementsFromArray(s1, s2);
-        
-        System.out.println("Common Elements are : ");
-        for(String str : common) {
-        	System.out.println(str+",");
-        }
+		moveZeroes(new int[] {12, 0, 7, 0, 8, 0, 3});
+		//reverseEachWord("Java Concept Of The Day");
+//		String[] s1 = {"ONE", "TWO", "THREE", "FOUR", "FIVE", "FOUR"};		 
+//		String[] s2 = {"THREE", "FOUR", "FIVE", "SIX", "SEVEN", "FOUR"};
+//		Set<String> common =  getCommonElementsFromArray(s1, s2);
+
+		//System.out.println("Common Elements are : ");
+//		for(String str : common) {
+//			System.out.println(str+",");
+//		}
 		//List<String> common = checkCommonElementsOfArray(s1, s2);
 		//stringRotationCheck("JavaJ2eeStrutsHibernate","StrutsHibernateJavaJ2ee");
 		//reverseString("Ab,c,de!$");
@@ -37,7 +39,7 @@ public class App
 		//findDuplicateChars("Better Butter");//Fresh Fish		
 		//printFizzBuzz(100);
 		//		int[] numbers = new int[] {9,7,10,9,1,2,3,1,2,3,4};
-		//		pattern1(5);
+		//	pattern1(5);
 		//int[] uniqueArr = removeDuplicatesFromArray(numbers);
 		//System.out.print(uniqueArr[0]);
 		//9 for Blue,1 for Green,2 for violet,3 for Red
@@ -57,7 +59,8 @@ public class App
 		//		int second = 20;
 		//		swapTwoNumbers(first, second);
 
-		//		String first = "reverse with string builder";
+				String first = "reverse with string builder";
+				duplicateRemoval(first);
 		//		String second = "reverse with string builder";
 		//		boolean result = checkAnagramWithList(first, second);
 		//		System.out.print("Is Anagram ? "+result);
@@ -67,6 +70,53 @@ public class App
 		//		countEachWord(input);
 	}
 	
+	//write a method to remove duplicates of a string
+	public static String duplicateRemoval(String str) {
+		StringBuilder builder = new StringBuilder();
+		
+		for(int i=0;i<str.length();i++) {
+			char ch = str.charAt(i);
+			if(builder.toString().indexOf(ch) == -1) {
+				builder.append(ch);				
+			}
+		}
+		
+		String unique =  builder.toString();		
+		return unique;
+	}
+	
+	public static int[] moveZeroes(int arr[]) {
+		int[] newArray = new int[arr.length];
+		int countNonZeroes = 0;
+		
+		for(int i=0;i<arr.length;i++) {
+			if(arr[i] != 0) {
+				newArray[countNonZeroes] = arr[i];
+				countNonZeroes++;
+			}
+		}
+		
+		while(countNonZeroes < arr.length) {
+			newArray[countNonZeroes] = 0;
+			countNonZeroes++;
+		}	
+		
+		return newArray;		
+	}
+	
+	//reverse each word in a string manually and then return the string
+	public static String reverseEachWord(String input) {
+		String[] arr = input.split(" ");
+		StringBuilder builder = new StringBuilder();
+	
+		for(String str : arr) {
+			builder.append(reverseManually(str)+" ");
+		}	
+		String result = builder.toString();
+		return result;
+		
+	}
+
 	//find common elements in an array
 	public static Set<String> getCommonElementsFromArray(String[] arr1,String[] arr2){
 		Set<String> common = new HashSet<String>();
@@ -84,32 +134,32 @@ public class App
 		}
 		return common;
 	}
-	
-//	public static List<String> checkCommonElementsOfArray(String[] arr1,String[] arr2) {
-//		List<String> commonElements = new ArrayList<String>();
-//		if(arr1.length == 0 && arr2.length == 0) {
-//			return null;
-//		}
-//		else {
-//			for(String str : arr1) {
-//				commonElements.add(str);
-//			}
-//			
-//			//if any element of arr2 is not present in commonElements then 
-//			for(String str1 : arr2) {
-//				if(commonElements.contains(str1)) {
-//					System.out.println(str1+",");
-//				}
-//			}
-//		}		
-//		return commonElements;
-//	}
-	
+
+	//	public static List<String> checkCommonElementsOfArray(String[] arr1,String[] arr2) {
+	//		List<String> commonElements = new ArrayList<String>();
+	//		if(arr1.length == 0 && arr2.length == 0) {
+	//			return null;
+	//		}
+	//		else {
+	//			for(String str : arr1) {
+	//				commonElements.add(str);
+	//			}
+	//			
+	//			//if any element of arr2 is not present in commonElements then 
+	//			for(String str1 : arr2) {
+	//				if(commonElements.contains(str1)) {
+	//					System.out.println(str1+",");
+	//				}
+	//			}
+	//		}		
+	//		return commonElements;
+	//	}
+
 	//check string rotation
 	public static boolean stringRotationCheck(String str1,String str2) {
 		boolean isIt = false;
 		String res = null;
-		
+
 		if(str1.length() != str2.length()) {
 			return isIt;
 		}
@@ -121,7 +171,7 @@ public class App
 		}
 		return isIt;
 	}
-	
+
 	//find pair of elements in an array which adds to given number
 	public static void findPair(int[] arr,int number) {		
 		for(int i=0;i<arr.length;i++) {
@@ -132,14 +182,14 @@ public class App
 			}
 		}
 	}
-	
-	
+
+
 	//find largest number less than given number without the given digit
 	public static int findNumLessThanGivenNumberWithoutDigit(int num,int digit) {
 		int lesser = 0;
 		//convert digit to char
 		char ch = Integer.toString(digit).charAt(0);
-		
+
 		for(int i=num;i>=0;i--) {
 			if(Integer.toString(i).indexOf(ch) == -1) {
 				lesser = i;
@@ -148,7 +198,7 @@ public class App
 		}
 		return -1;
 	}
-	
+
 	//count occurences of each character in a String
 	public static void countCharacterOccurence(String input) {
 		Map<Character,Integer> map = new HashMap<Character, Integer>();
@@ -174,7 +224,7 @@ public class App
 			System.out.println("given string is emnpty");
 		}
 	}
-	
+
 	//print second largest number
 	private static void printSecHighestElement(int arr[]) {
 		int largest = arr[0];
@@ -190,29 +240,29 @@ public class App
 			}
 		}
 	}	
-	
+
 	//find sum of digits of a numer
 	public static void findSum(int number) {
 		int sum = 0;
 		int reminder = 0;
-		
+
 		while(number > 0) {
 			reminder = number % 10;
 			sum = sum+reminder;
 			number = number/10;			
 		}
-		
+
 		System.out.print("Sum is : "+sum);
 	}
-	
+
 	//check Armstrong number
 	public static void checkArmstrong(int num) {
 		int result = 0;
 		int reminder = 0;
-		
+
 		//get the number of digits in a number
 		int noOfDigits = String.valueOf(num).length();
-		
+
 		while(num > 0) {
 			reminder = num % 10;	
 			int lastDigit = 1;
@@ -221,7 +271,6 @@ public class App
 			}
 			result = result+lastDigit;			
 		}
-		
 	}
 
 	//find duplicate characters in a given string
@@ -263,7 +312,7 @@ public class App
 		else {
 			isEqual = false;
 		}
-		
+
 		if(isEqual) {
 			System.out.println("Arrays are equal");
 		}
@@ -271,7 +320,7 @@ public class App
 			System.out.println("Arrays are not equal");
 		}
 	}
-	
+
 	//find the longest string in a given string array
 	public static void findLargestString(String[] arr) {
 		int maxLength = 0;
@@ -309,15 +358,15 @@ public class App
 	private static void pattern1(int noOfRows) {
 		int row = 1;		
 		for(int i=noOfRows;i>0;i--) {
-			//			for(int j=1;j<=row;j++) {
-			//				System.out.print(row+" ");
-			//			}
+//			for(int j=1;j<=row;j++) {
+//				System.out.print(row+" ");
+//			}
 			for(int j=1;j<=i;j++) {
 				System.out.print(" ");
 			}
 			for(int j=1;j<=row;j++) {
-				//System.out.print(row+" ");
-				System.out.print(j+" ");
+				System.out.print(row+" ");
+				//System.out.print(j+" ");
 			}
 			row++;
 			System.out.println();			
@@ -474,8 +523,10 @@ public class App
 		return input;		
 	}
 
-	private static int[] reverseArrayWithoutOther(int[] input,int start,int end) {
+	private static int[] reverseArrayWithoutOther(int[] input) {
 		int temp = 0;	
+		int start = 0;
+		int end = input.length;
 		System.out.print("Input Array elements are : ");
 		for(int i=0;i<input.length;i++) {
 			System.out.print(input[i]+",");
@@ -574,46 +625,45 @@ public class App
 
 	@SuppressWarnings("unused")
 	public static String reverseString(String input){ //"Ab,c,de!$"
-	    char[] arr = new char[input.length()];
-	    StringBuilder builder = new StringBuilder();
-	    if(input == null){
-	        System.out.println("string is empty");
-	    }
-	    else{
-	        arr = reverseCharArray(input.toCharArray());
-	    }
-	    
-	    for(char ch1: arr){
-	        builder.append(ch1);
-	    }    
-	    return builder.toString();    
+		char[] arr = new char[input.length()];
+		StringBuilder builder = new StringBuilder();
+		if(input == null){
+			System.out.println("string is empty");
+		}
+		else{
+			arr = reverseCharArray(input.toCharArray());
+		}
+
+		for(char ch1: arr){
+			builder.append(ch1);
+		}    
+		return builder.toString();    
 	}
 
 	public static char[] reverseCharArray(char[] str){
-	    int arrLength = str.length-1;
-	    int length = 0;
-	    char temp = ' '; 
-	    
-	    while(length<arrLength){
-	        if(!Character.isAlphabetic(str[length])){
-	            length++;
-	        }
-	        else if(!Character.isAlphabetic(str[arrLength])){
-	            arrLength--;
-	        }
-	        else{
-	            temp = str[length];
-	            str[length] = str[arrLength];
-	            str[arrLength] = temp;
-	            length++;
-	            arrLength--;
-	        }
-	    }
-	    return str;
+		int arrLength = str.length-1;
+		int length = 0;
+		char temp = ' '; 
+
+		while(length<arrLength){
+			if(!Character.isAlphabetic(str[length])){
+				length++;
+			}
+			else if(!Character.isAlphabetic(str[arrLength])){
+				arrLength--;
+			}
+			else{
+				temp = str[length];
+				str[length] = str[arrLength];
+				str[arrLength] = temp;
+				length++;
+				arrLength--;
+			}
+		}
+		return str;
 	}
 
 }
-
 
 class Stack{
 	private int[] arr;
