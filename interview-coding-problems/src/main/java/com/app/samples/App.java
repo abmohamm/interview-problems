@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -713,5 +714,362 @@ class Stack{
 
 	public boolean isFull() {
 		return top == capacity-1;
+	}
+	
+	public static String reverseEachWordOfAString(String input){
+		String[] array = input.split(" ");
+		String reversedString = "";
+		for(String str1 : array) {
+			String result = "";
+			for(int i = str1.length()-1;i>=0;i--) {
+				result = result+str1.charAt(i);
+			}
+			reversedString = reversedString+result+ " ";
+		}
+		return reversedString;		
+	}
+	
+	public static boolean checkStringRotation(String str1,String str2) {
+		boolean result = false;
+		String str3;
+		if(str1.length() != str2.length()) {
+			return result;
+		}
+		else {
+			str3 = str1+str1;
+			if(str3.contains(str2)) {
+				result = true;
+			}			
+		}		
+		return result;
+	}
+	
+	public static boolean checkBinary(int number) {
+		boolean result = true;
+		//int input = number;
+		int reminder;
+		while(number != 0) {
+			reminder = number % 10;
+			if(reminder>1) {
+				result = false;
+				break;
+			}
+			else {
+				number = number/10;
+			}
+		}
+		return result;
+	}
+	
+	public static char firstNonRepeatedCharacter(String input) {
+		char ch = ' ';
+		Map<Character,Integer> map = new HashMap<Character, Integer>();
+		for(char ch1 : input.toCharArray()) {
+			if(!map.containsKey(ch1)) {
+				map.put(ch1, 1);
+			}
+			else {
+				map.put(ch1, map.get(ch1)+1);
+			}
+		}
+		Set<Entry<Character, Integer>> set = map.entrySet();
+		for(Entry<Character,Integer> entry : set) {
+			if(entry.getValue() == 1) {
+				ch = entry.getKey();
+			}
+		}
+		return ch;
+	}
+	
+	public static int[] reverseArray(int arr[]) {
+		int res[] = new int[arr.length];
+		int length = arr.length;
+		int temp;
+		for(int i = length-1;i>=0;i--) {
+			temp = arr[i];
+			res[length-1-i] = temp;			
+		}
+		return res;
+	}
+	
+	public static char firstNonRepeatedCharacters(String input) {
+		char ch = ' ';
+		Map<Character,Integer> map = new HashMap<Character, Integer>();
+		for(char ch1 : input.toCharArray()) {
+			if(!map.containsKey(ch1)) {
+				map.put(ch1, 1);
+			}
+			else {
+				map.put(ch1, map.get(ch1)+1);
+			}
+		}
+		Set<Entry<Character, Integer>> set = map.entrySet();
+		for(Entry<Character,Integer> entry : set) {
+			if(entry.getValue() == 1) {
+				ch = entry.getKey();
+			}
+		}
+		return ch;
+	}
+	
+	public static int factorial(int number) {
+		int num = 0;
+		if(number == 0) {
+			return 1;
+		}
+		else {
+			num = number*factorial(number-1);
+			return num;
+		}
+	}
+
+	public static void removeWhiteSpaces(String input) {
+		String result = "";
+		StringTokenizer tokenizer = new StringTokenizer(input, " ");
+		while(tokenizer.hasMoreTokens()) {
+			result = result+tokenizer.nextToken();
+		}
+		System.out.print("string after removing spaces is : "+result);
+	}
+	
+	public static boolean checkAnagram(String input,String anagram) {
+		boolean result = true;
+		int count = 1;
+		int num = 0;
+		Map<Character, Integer> map = new HashMap<Character, Integer>();
+		input = input.toLowerCase();
+		anagram = anagram.toLowerCase();
+		for(char ch : input.toCharArray()) {
+			if(map.containsKey(ch)) {
+				num = map.get(ch);
+				map.put(ch, num+1);
+			}
+			else {
+				map.put(ch,count);
+			}
+		}
+		for(char ch : anagram.toCharArray()) {
+			if(!map.containsKey(ch)) {
+				result = false;
+			}
+			else {
+				num = map.get(ch);
+				map.put(ch, num-1);
+				if(num == 0) {
+					map.remove(ch);
+				}
+			}
+		}
+		return result;
+	}
+	
+	public static boolean isPalindrome(int num) {
+		int input = num;
+		boolean result = false;
+		int noOfDigits = String.valueOf(num).length();
+		int sum = 0;
+		int rem;
+		while(num > 0) {
+			rem = num%10;
+			sum = sum+rem^noOfDigits;
+			num = num/10;
+		}
+
+		if(input == sum) {
+			result = true;
+		}		
+		return result;
+	}
+	
+	public static String reverseString(String input) {
+		String result = "";		
+		for(int i = input.length()-1;i>=0;i--) {
+			result = result+input.charAt(i);
+		}		
+		return result;
+	}
+	
+	public static ArrayList<Integer> printFibonacci(int num) {
+		int fb1 = 1,fb2 = 1;
+		int fbTotal = 0;
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		list.add(fb1);
+		list.add(fb2);
+		for(int i = 0;i<num;i++) {
+			fbTotal = fb1+fb2;
+			list.add(fbTotal);
+			fb1 = fb2;
+			fb2 = fbTotal;
+			list.add(fb1);
+			list.add(fb2);
+		}
+		System.out.print(" fibonacci series "+list.toString());
+		return list;
+	}
+	
+	public static void printPrime(int num) {
+		int counter;
+		for(int i = 1;i<=num;i++) {
+			counter = 0;
+			for(int j = 1;j<=num;j++) {
+				if(i % j == 0) {
+					counter++;
+				}
+			}
+			if(counter == 2) {
+				System.out.print(i+" ");
+			}
+		}
+	}
+	
+	public static void removeDuplicates(int arr[]) {
+		List<Integer> list = new ArrayList<Integer>();		
+		for(int i = 0;i<arr.length;i++) {
+			if(!list.contains(arr[i])) {
+				list.add(arr[i]);
+			}
+		}
+		System.out.println("unique elements are : ");
+		for(int i : list) {
+			System.out.print(i+",");
+		}		
+	}
+	
+	public static void countCharacters(String input) {
+		Map<Character,Integer> countChar = new HashMap<Character,Integer>();
+		int count = 1;
+		int num = 0;
+		char ch;
+		for(int i = 0;i<input.length();i++) {
+			ch = input.charAt(i);
+			if(!countChar.containsKey(ch)) {
+				countChar.put(input.charAt(i), count);
+			}
+			else {
+				num = countChar.get(ch);
+				num++;
+				countChar.put(ch, num);
+			}
+		}		
+		Set<Map.Entry<Character,Integer>>  set = countChar.entrySet();
+		System.out.println("repeated charcters are : ");
+		for(Entry<Character, Integer> map : set) {
+			if(map.getValue()>1) {
+				System.out.print(" "+map.getKey());
+			}
+		}		
+	}
+	
+	public static void countOfWords(String input) {
+		String str[] = input.split(" ");
+		int count = 1;
+		int num = 0;
+		Map<String,Integer> countMap = new HashMap<String,Integer>();
+		for(int i = 0;i<str.length;i++) {
+			if(!countMap.containsKey(str[i])) {
+				countMap.put(str[i], count);
+			}
+			else {
+				num = countMap.get(str[i]);
+				num++;
+				countMap.put(str[i], num);
+			}
+		}
+		Set<Map.Entry<String,Integer>>  set = countMap.entrySet();
+		for(Entry<String, Integer> map : set) {
+			System.out.println(map.getKey()+" is present "+map.getValue()+" times ");
+		}
+	}	
+	
+	public static void duplicateArrayElements(int[] array) {
+		Map<Integer,Integer> map = new HashMap<Integer, Integer>();
+		int count = 1;
+		int num = 0;
+		for(int i = 0;i<array.length;i++) {
+			//if(map.get(array[i]) == null) {
+			if(!map.containsKey(array[i])) {
+				map.put(array[i], count);
+			}
+			else {
+				num = map.get(array[i]);
+				map.put(array[i], num+1);
+			}
+		}
+		Set<Map.Entry<Integer, Integer>> set = map.entrySet();		
+		System.out.println("duplicate elements are : ");
+		for(Map.Entry<Integer,Integer> map1 : set) {
+			if(map1.getValue()>1) {
+				System.out.print(map1.getKey()+" ");
+			}
+		}		
+	}
+	
+	public static boolean isArmStrong(int num) {
+		int input = num;
+		int sum = 0;
+		boolean result = false;
+		int noOfDigits = String.valueOf(num).length();
+		int lastDigit = 0;
+		while(num>0) {
+			lastDigit = num%10;
+			int number = 1;
+			for(int i = 0;i<noOfDigits;i++) {
+				number = number * lastDigit;
+			}
+			sum = sum+number;	
+			num = num/10;
+		}		
+		if(input == sum) {
+			result = true;
+		}		
+		return result;
+	}
+	
+	public static List<String> removeDuplicatesFromList(List<String> list) {
+		List<String> uniqueList = new ArrayList<String>();
+		for(String str : list) {
+			if(!uniqueList.contains(str)) {
+				uniqueList.add(str);
+			}
+		}
+		return uniqueList;
+	}	
+
+	public static void removeSpacesFromString(String input) {
+		String result = "";
+		char ch;
+		for(int i = 0;i<input.length();i++) {
+			ch = input.charAt(i);
+			if(ch != ' ') {
+				result = result+ch;				
+			}
+		}
+		System.out.print("string after removing spaces : "+result);		
+	}
+	
+	public static void sumOfAllDigitsOfANumber(int number) {
+		int sum = 0;
+		int inputNumber = number;
+		int rem = 0;
+		while(number > 0) {
+			rem = number%10;
+			sum = sum+rem;
+			number = number/10;
+		}
+		System.out.print("sum of digits of a given number "+inputNumber+" is : "+sum);		
+	}
+	
+	public static void nThLargestNumber(int[] array,int nthlargest) {
+		int temp = 0;
+		for(int i = 0;i<array.length;i++) {
+			for(int j = i+1;j<array.length;j++) {
+				if(array[i] > array[j]) {
+					temp = array[i];
+					array[i] = array[j];
+					array[j] = temp;					
+				}
+			}
+		}
+		System.out.println("required largest element is : "+(array[array.length-nthlargest]));
 	}
 }
